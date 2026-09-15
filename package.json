@@ -1,0 +1,52 @@
+{
+  "name": "login-with-google-typescript",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/server/app.js",
+    "dev": "tsx watch ./src/server/app.ts",
+    "dev-built": "node ./src/server/app.js",
+    "build": "cd ./src/server && tsc --build && cd ../client && tsc && cd ../.. && vite build",
+    "dev-windows": "cd ./src/server && env.bat && cd ../../ && tsx watch ./src/server/app.ts",
+    "dev-windows-built": "cd ./src/server && env.bat && cd ../../ && node ./src/server/app.js",
+    "build-windows": "cd ./src/server && env.bat && tsc --build && cd ../client && tsc && cd ../.. && vite build",
+    "dev-linux": "cd ./src/server && env.sh && cd ../../ && tsx watch ./src/server/app.ts",
+    "dev-linux-built": "cd ./src/server && env.sh && cd ../../ && node ./src/server/app.js",
+    "build-linux": "cd ./src/server && env.sh && tsc --build && cd ../client && tsc && cd ../.. && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@dr.pogodin/csurf": "^1.17.1",
+    "body-parser": "^2.3.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "pg": "^8.23.0",
+    "serve-favicon": "^2.5.1",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.6",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
+    "@types/debug": "^4.1.12",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.19.0",
+    "@types/node": "^24.1.0",
+    "@types/passport": "^1.0.17",
+    "@types/passport-google-oauth20": "^2.0.17",
+    "@types/pg": "^8.23.1",
+    "@types/serve-favicon": "^2.5.7",
+    "@types/winston": "^2.4.4",
+    "tsx": "^4.20.3",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4"
+  }
+}

@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "composite": true,
+      "rootDir": ".",
+      "target": "es2022",
+      "useDefineForClassFields": true,
+      "module": "es2022",
+      "moduleResolution": "bundler",
+      "strict": true,
+      "sourceMap": true,
+      "esModuleInterop": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noImplicitReturns": true,
+      "forceConsistentCasingInFileNames": true,
+    }
+}
