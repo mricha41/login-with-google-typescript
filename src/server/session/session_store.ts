@@ -1,12 +1,12 @@
 import { SessionData, Store } from "express-session";
-import { Pool, PoolOptions } from 'pg';
+import { DatabaseError, Pool, PoolOptions } from 'pg';
 
 const ONE_DAY = 86400;
 
 const currentTimestamp = () => Math.ceil(Date.now() / 1000);
 
-type ErrorCallback = (error: any) => any;
-type Callback = (error: any, data: any) => any;
+type ErrorCallback = (error: any) => unknown;
+type Callback = (error: any, data: any) => unknown;
 
 type SessionStoreOptions = {
     poolOptions?: PoolOptions,
@@ -78,8 +78,9 @@ class SessionStore extends Store {
         try {
 
             await this._pool.query('TRUNCATE sessions');
+            return;
 
-        } catch (error: any) {
+        } catch (error) {
 
             return callback(error);
         }
@@ -101,11 +102,11 @@ class SessionStore extends Store {
 
    public get (sid: string, callback: Callback) {
 
-        this._pool.query('SELECT session_data FROM sessions WHERE session_id = $1 AND expiration >= to_timestamp($2)', [sid, currentTimestamp()], (error: any, result) => {
+        this._pool.query('SELECT session_data FROM sessions WHERE session_id = $1 AND expiration >= to_timestamp($2)', [sid, currentTimestamp()], (error, result) => {
 
-            if (error) {
+            if (error && error.cause instanceof DatabaseError) {
                 
-                if (error.code === 'ENOENT') { //SEE https://github.com/expressjs/session#compatible-session-stores
+                if (error.cause.code === 'ENOENT') { //SEE https://github.com/expressjs/session#compatible-session-stores
                     return callback(null, null);
                 }
                 return callback(error, null);

@@ -2,7 +2,7 @@ import path from 'path';
 //import path, { dirname } from 'path';
 //import { fileURLToPath } from 'url';
 import fs from 'fs/promises';
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 var indexRouter = express.Router();
 
 //const __filename = fileURLToPath(import.meta.url);
@@ -52,8 +52,7 @@ if (process.env.NODE_ENV === "development") {
 
 }
 
-// @ts-ignore
-indexRouter.get('/', function(req, res, next) {
+indexRouter.get('/', (_req: Request, res: Response, _next: NextFunction) => {
   
   res.render('index.ejs', { viteInject: viteInject, canonical: `${process.env.CANONICAL}` });
 

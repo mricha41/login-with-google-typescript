@@ -309,14 +309,13 @@ try {
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
-// @ts-ignore
-app.use(function(req, res, next) {
+app.use(function(_req: Request, _res: Response, next: NextFunction) {
   next(createError(404));
 });
 
 // error handler
-// @ts-ignore
-app.use(function(err: any, req: any, res: any, next: any) {
+//type ErrorRequestHandler has err: any as its error parameter
+app.use(function(err: any, req: Request, res: Response, _next: NextFunction) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

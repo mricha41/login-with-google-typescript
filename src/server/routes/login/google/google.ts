@@ -65,13 +65,13 @@ function GoogleLogin (pool: Pool) {
     }
   );
 
-  passport.serializeUser(function(user: any, cb) {
+  passport.serializeUser(function(user: Express.User, cb) {
     process.nextTick(function() {
       return cb(null, user);
     });
   });
 
-  passport.deserializeUser(function(user: any, cb) {
+  passport.deserializeUser(function(user: Express.User, cb) {
     process.nextTick(function() {
       return cb(null, user);
     });
@@ -89,21 +89,21 @@ function GoogleLogin (pool: Pool) {
     })
   );
 
-  googleRouter.get('/auth/google/user', (_req: Request, _res: Response, _next: NextFunction) => {
+  googleRouter.get('/auth/google/user', (req: Request, res: Response, _next: NextFunction) => {
 
-    if (_req.user) {
-      _res.send(_req.user);
+    if (req.user) {
+      res.send(req.user);
     } else {
-      _res.status(401).send(null);
+      res.status(401).send(null);
     }
 
   });
 
-  googleRouter.post('/auth/google/logout', function(_req: Request, _res: Response, _next: NextFunction) {
+  googleRouter.post('/auth/google/logout', function(req: Request, res: Response, _next: NextFunction) {
 
-    _req.logout( (err) => {
+    req.logout( (err) => {
       if (err) { return _next(err); }
-      _res.redirect('/');
+      res.redirect('/');
     });
 
   });
